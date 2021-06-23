@@ -48,15 +48,19 @@ public class ProcessadorDeBoletosTest {
 
 	}
 
-	@DisplayName("Teste 1: Verifica se a fatura 1 e a fatura 2 foram pagas")
+	@DisplayName("Teste 1: Verifica se a fatura 1 foi paga")
 	@Test
 	public void testFaturaPaga1() {
 		pagamento1.pagarFatura(boletosFatura1, fatura1);
 		assertEquals(fatura1.getstatusDaFatura(), "PAGA");
-		
-		pagamento1.pagarFatura(boletosFatura2, fatura2);
-		assertEquals(fatura1.getstatusDaFatura(), "PAGA");
-
 	}
+	
+	@DisplayName("Teste 2: Verifica se a fatura 2 foi paga")
+	@Test
+	public void testFaturaPaga2() {
+		pagamento2.pagarFatura(boletosFatura2, fatura2);
+		assertEquals(fatura2.getstatusDaFatura(), "PAGA");
+	}
+	
 
 }
