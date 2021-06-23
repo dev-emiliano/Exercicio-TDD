@@ -1,20 +1,34 @@
 package processador;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.ArrayList;
+import java.util.Date;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import boleto.Boleto;
+import fatura.Fatura;
+import pagamento.Pagamento;
+
 public class ProcessadorDeBoletosTest {
 
-	private Fatura fatura1;
-	private Fatura fatura2;
-	private Fatura fatura3;
 	private ArrayList<Boleto> boletosFatura1 = new ArrayList();
 	private ArrayList<Boleto> boletosFatura2 = new ArrayList();
 	private ArrayList<Boleto> boletosFatura3 = new ArrayList();
-	private Pagamento pagamento;
+
+	private Pagamento pagamento1 = new Pagamento();
+	private Pagamento pagamento2 = new Pagamento();
+	private Pagamento pagamento3 = new Pagamento();
+
+	Fatura fatura1 = new Fatura("Samantha Costs", 3000.00, new Date());
+	Fatura fatura2 = new Fatura("Lucas Roger", 2000.00, new Date());
+	Fatura fatura3 = new Fatura("Luisa Spos", 1000.00, new Date());
 
 	@BeforeEach
 	public void inicializaProcessadorDeFaturas() {
-		Fatura fatura1 = new Fatura("Samantha Costs", 3000.00, new Date());
-		Fatura fatura2 = new Fatura("Lucas Roger", 2000.00, new Date());
-		Fatura fatura3 = new Fatura("Luisa Spos", 1000.00, new Date());
 
 		Boleto boleto1 = new Boleto(11111, new Date(), 2500);
 		Boleto boleto2 = new Boleto(22222, new Date(), 300);
@@ -29,38 +43,19 @@ public class ProcessadorDeBoletosTest {
 
 		boletosFatura2.add(boleto4);
 		boletosFatura2.add(boleto5);
-		
+
 		boletosFatura3.add(boleto6);
 
 	}
 
-	@DisplayName("Teste 1: Verifica se a fatura 1 foi paga")
+	@DisplayName("Teste 1: Verifica se a fatura 1 e a fatura 2 foram pagas")
 	@Test
 	public void testFaturaPaga1() {
-		pagamento.pagarFatura(boletosFatura1, fatura1);
+		pagamento1.pagarFatura(boletosFatura1, fatura1);
 		assertEquals(fatura1.getstatusDaFatura(), "PAGA");
-		pagamento.pagarFatura(boletosFatura2, fatura3);
+		
+		pagamento1.pagarFatura(boletosFatura2, fatura2);
 		assertEquals(fatura1.getstatusDaFatura(), "PAGA");
-
-	}
-
-	@DisplayName("Teste 2: Verifica se a fatura 2 foi paga")
-	@Test
-	public void testFaturaPaga2() {
-		pagamento.pagarFatura(boletosFatura2, fatura2);
-		assertEquals(fatura2.getstatusDaFatura(), "PAGA");
-		pagamento.pagarFatura(boletosFatura1, fatura2);
-		assertEquals(fatura2.getstatusDaFatura(), "PAGA");
-
-	}
-	
-	@DisplayName("Teste 3: Verifica se a fatura 3 foi paga")
-	@Test
-	public void testFaturaPaga3() {
-		pagamento.pagarFatura(boletosFatura2, fatura1);
-		assertEquals(fatura2.getstatusDaFatura(), "PAGA");
-		pagamento.pagarFatura(boletosFatura1, fatura1);
-		assertEquals(fatura2.getstatusDaFatura(), "PAGA");
 
 	}
 
